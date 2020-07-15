@@ -22,6 +22,14 @@ connection.once('open', () => {
   console.log("MongoDB database connection established successfully");
 })
 
+//Require the use of the routing files to allow users to navigate from the root url to other pages
+const exercisesRouter = require('./routes/exercises');
+const usersRouter = require('./routes/users');
+
+//Use the routing files to allow redirecting
+app.use('/exercises', exercisesRouter);
+app.use('/users', usersRouter);
+
 //starts the server
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

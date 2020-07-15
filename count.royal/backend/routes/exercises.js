@@ -29,18 +29,23 @@ router.route('/add').post((req, res) => {
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
+//:id is an object provided by mongodb that allows for specific items to be manipulated in the collection
+
+//This function allows a specific exercise to be pulled from the mongo collection
 router.route('/:id').get((req, res) => {
     Exercise.findById(req.params.id)
       .then(exercise => res.json(exercise))
       .catch(err => res.status(400).json('Error: ' + err));
   });
   
+  //This function allows a specific exercise to be deleted from the mongo collection
   router.route('/:id').delete((req, res) => {
     Exercise.findByIdAndDelete(req.params.id)
       .then(() => res.json('Exercise deleted.'))
       .catch(err => res.status(400).json('Error: ' + err));
   });
   
+  //This function allows a specific exercise to be modified from the mongo collection
   router.route('/update/:id').post((req, res) => {
     Exercise.findById(req.params.id)
       .then(exercise => {
@@ -56,4 +61,5 @@ router.route('/:id').get((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
   });
 
+//The routing module needs to be exported to the router or else the server cannot use the router files
 module.exports = router;
